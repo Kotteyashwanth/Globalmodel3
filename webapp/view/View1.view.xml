@@ -1,128 +1,163 @@
 <mvc:View
-  controllerName="project7.controller.View1"
-  xmlns:mvc="sap.ui.core.mvc"
-  xmlns="sap.m"
-  xmlns:core="sap.ui.core">
+    controllerName="project7.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
 
-  <Page title="Orders Dashboard">
-    <content>
+    <Page title="Orders Dashboard">
 
-      <HBox width="100%" alignItems="Center" class="sapUiSmallMargin">
+        <content>
 
- 
-        <SearchField
-          id="searchField"
-          width="250px"
-          placeholder="Search Orders"
-          value="{filters>/search}"
-          liveChange="onSearch"
-        />
+           
+            <FacetFilter
+                id="facetFilter"
+                type="Simple"
+                confirm="onFacetConfirm"
+                class="sapUiSmallMargin">
 
-     
-        <HBox class="sapUiSmallMarginBegin" alignItems="Center">
-          <core:Icon src="sap-icon://status-positive" class="sapUiTinyMarginEnd"/>
-          <ComboBox
-            id="statusFilter"
-            width="200px"
-            selectedKey="{filters>/status}"
-            change="onFilterChange">
+                <lists>
 
-            <items>
-              <core:Item key="" text="All Status"/>
-              <core:Item key="New" text="New"/>
-              <core:Item key="Pending" text="Pending"/>
-              <core:Item key="Shipped" text="Shipped"/>
-            </items>
-          </ComboBox>
-        </HBox>
+                    <!-- STATUS -->
+                    <FacetFilterList title="Status" key="Status">
+                        <items>
+                            <FacetFilterItem text="New" key="New"/>
+                            <FacetFilterItem text="Pending" key="Pending"/>
+                            <FacetFilterItem text="Shipped" key="Shipped"/>
+                        </items>
+                    </FacetFilterList>
+
+                    <!-- COUNTRY -->
+                    <FacetFilterList title="Country" key="Country">
+                        <items>
+                            <FacetFilterItem text="India" key="India"/>
+                            <FacetFilterItem text="USA" key="USA"/>
+                            <FacetFilterItem text="UK" key="UK"/>
+                            <FacetFilterItem text="Germany" key="Germany"/>
+                            <FacetFilterItem text="Canada" key="Canada"/>
+                        </items>
+                    </FacetFilterList>
+
+                </lists>
+            </FacetFilter>
 
 
-        <HBox class="sapUiSmallMarginBegin" alignItems="Center">
-          <core:Icon src="sap-icon://world" class="sapUiTinyMarginEnd"/>
-          <ComboBox
-            id="countryFilter"
-            width="200px"
-            selectedKey="{filters>/country}"
-            change="onFilterChange">
+   
+            <Toolbar class="sapUiSmallMargin">
 
-            <items>
-              <core:Item key="" text="All Countries"/>
-              <core:Item key="India" text="India"/>
-              <core:Item key="USA" text="USA"/>
-              <core:Item key="UK" text="UK"/>
-              <core:Item key="Germany" text="Germany"/>
-              <core:Item key="Canada" text="Canada"/>
-            </items>
-          </ComboBox>
-        </HBox>
+       
+                <SearchField
+                    id="searchField"
+                    width="200px"
+                    placeholder="Search Orders"
+                    value="{filters>/search}"
+                    liveChange="onSearch"/>
 
     
-        <HBox class="sapUiSmallMarginBegin" alignItems="Center">
-          <core:Icon src="sap-icon://money-bills" class="sapUiTinyMarginEnd"/>
-          <ComboBox
-            id="amountFilter"
-            width="200px"
-            selectedKey="{filters>/amount}"
-            change="onFilterChange">
+                <ComboBox
+                    id="statusFilter"
+                    width="140px"
+                    selectedKey="{filters>/status}"
+                    change="onFilterChange"
+                    class="sapUiSmallMarginBegin">
+                    <items>
+                        <core:Item key="" text="All Status"/>
+                        <core:Item key="New" text="New"/>
+                        <core:Item key="Pending" text="Pending"/>
+                        <core:Item key="Shipped" text="Shipped"/>
+                    </items>
+                </ComboBox>
 
-            <items>
-              <core:Item key="" text="All Amounts"/>
-              <core:Item key="low" text="&lt; 500"/>
-              <core:Item key="mid" text="500 - 1000"/>
-              <core:Item key="high" text="&gt; 1000"/>
-            </items>
-          </ComboBox>
-        </HBox>
+         
+                <ComboBox
+                    id="countryFilter"
+                    width="150px"
+                    selectedKey="{filters>/country}"
+                    change="onFilterChange"
+                    class="sapUiSmallMarginBegin">
+                    <items>
+                        <core:Item key="" text="All Countries"/>
+                        <core:Item key="India" text="India"/>
+                        <core:Item key="USA" text="USA"/>
+                        <core:Item key="UK" text="UK"/>
+                        <core:Item key="Germany" text="Germany"/>
+                        <core:Item key="Canada" text="Canada"/>
+                    </items>
+                </ComboBox>
+
+       
+                <ComboBox
+                    id="amountFilter"
+                    width="150px"
+                    selectedKey="{filters>/amount}"
+                    change="onFilterChange"
+                    class="sapUiSmallMarginBegin">
+                    <items>
+                        <core:Item key="" text="All Amounts"/>
+                        <core:Item key="low" text="&lt; 500"/>
+                        <core:Item key="mid" text="500 - 1000"/>
+                        <core:Item key="high" text="&gt; 1000"/>
+                    </items>
+                </ComboBox>
+
+    
+                <Button
+                    text="Search"
+                    press="onSearchPress"
+                    class="sapUiSmallMarginBegin"/>
+
+                <Button
+                    text="Reset"
+                    press="onReset"
+                    class="sapUiSmallMarginBegin"/>
+
+       
+                <ToolbarSpacer/>
+
+     
+                <Title text="Total: {/orderCount}" level="H5"/>
+
+ 
+                <Button
+                    icon="sap-icon://palette"
+                    tooltip="Change Theme"
+                    press="onThemeToggle"
+                    class="sapUiTinyMarginBegin"/>
+
+            </Toolbar>
 
 
-          <Button
-          text="Search"
-          press="onSearchPress"
-          class="sapUiSmallMarginBegin"/>
+         
+            <Table
+                id="orderTable"
+                items="{/Orders}"
+                mode="SingleSelectMaster"
+                selectionChange="onSelect"
+                updateFinished="onUpdateFinished"
+                growing="true"
+                class="sapUiSmallMarginTop">
 
-          <Button
-          text="Reset"
-          press="onReset"
-          class="sapUiSmallMarginBegin"/>
+                <columns>
+                    <Column><Text text="Order ID"/></Column>
+                    <Column><Text text="Customer"/></Column>
+                    <Column><Text text="Country"/></Column>
+                    <Column><Text text="Amount"/></Column>
+                    <Column><Text text="Status"/></Column>
+                </columns>
 
-    <Button
-        icon="sap-icon://palette"
-        tooltip="Change Theme"
-        press="onThemeToggle"
-        class="sapUiTinyMarginBegin"
-        align="right"/>
+                <items>
+                    <ColumnListItem type="Navigation">
+                        <cells>
+                            <Text text="{OrderID}"/>
+                            <Text text="{Customer}"/>
+                            <Text text="{Country}"/>
+                            <Text text="{Amount}"/>
+                            <Text text="{Status}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
 
-      </HBox>
+            </Table>
 
-
-      <Table
-        id="orderTable"
-        items="{/Orders}"
-        mode="SingleSelectMaster"
-        selectionChange="onSelect">
-
-        <columns>
-          <Column><Text text="Order ID"/></Column>
-          <Column><Text text="Customer"/></Column>
-          <Column><Text text="Country"/></Column>
-          <Column><Text text="Amount"/></Column>
-          <Column><Text text="Status"/></Column>
-        </columns>
-
-        <items>
-          <ColumnListItem type="Navigation">
-            <cells>
-              <Text text="{OrderID}"/>
-              <Text text="{Customer}"/>
-              <Text text="{Country}"/>
-              <Text text="{Amount}"/>
-              <Text text="{Status}"/>
-            </cells>
-          </ColumnListItem>
-        </items>
-
-      </Table>
-
-    </content>
-  </Page>
+        </content>
+    </Page>
 </mvc:View>
