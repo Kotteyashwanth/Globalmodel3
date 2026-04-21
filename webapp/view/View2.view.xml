@@ -1,0 +1,84 @@
+<mvc:View
+  controllerName="project7.controller.View2"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout">
+
+  <Page title="Order Details" showNavButton="true" navButtonPress="onBack">
+
+    <content>
+
+      <VBox class="sapUiMediumMargin">
+        <ObjectHeader
+          title="Order ID: {selected>/OrderID}"
+          number="{selected>/Amount}"
+          numberUnit="INR"
+          intro="Customer: {selected>/Customer}"
+        />
+        <l:Grid defaultSpan="L4 M6 S12" hSpacing="2" vSpacing="2">
+          <VBox class="sapUiSmallMargin">
+            <Title text="Order Information"/>
+            <Text text="Order ID: {selected>/OrderID}"/>
+            <Text text="Status: {selected>/Status}"/>
+            <Text text="Customer: {selected>/Customer}"/>
+          </VBox>
+          <VBox class="sapUiSmallMargin">
+            <Title text="Customer Details"/>
+            <Text text="Name: {selected>/Customer}"/>
+            <Text text="Country: {selected>/Country}"/>
+            <Text text="Contact: +91-9876543210"/>
+          </VBox>
+          <VBox class="sapUiSmallMargin">
+            <Title text="Additional Details"/>
+            <Text text="Delivery: 3 days"/>
+            <Text text="Payment: Completed"/>
+            <Text text="Warranty: 1 Year"/>
+          </VBox>
+
+        </l:Grid>
+        <Table class="sapUiMediumMarginTop">
+
+          <columns>
+            <Column><Text text="Item"/></Column>
+            <Column><Text text="Qty"/></Column>
+            <Column><Text text="Price"/></Column>
+            <Column><Text text="Category"/></Column>
+            <Column><Text text="Brand"/></Column>
+            <Column><Text text="Stock"/></Column>
+          </columns>
+
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="Laptop"/>
+                <Text text="1"/>
+                <Text text="50000"/>
+
+             
+                <Text text="Electronics"/>
+                <Text text="Dell"/>
+                <Text text="Available"/>
+              </cells>
+            </ColumnListItem>
+
+           
+            <ColumnListItem>
+              <cells>
+                <Text text="Mobile"/>
+                <Text text="2"/>
+                <Text text="20000"/>
+                <Text text="Electronics"/>
+                <Text text="Samsung"/>
+                <Text text="Available"/>
+              </cells>
+            </ColumnListItem>
+
+          </items>
+
+        </Table>
+
+      </VBox>
+
+    </content>
+  </Page>
+</mvc:View>

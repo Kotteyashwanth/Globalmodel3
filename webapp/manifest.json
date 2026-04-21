@@ -1,0 +1,85 @@
+{
+  "_version": "1.83.0",
+  "sap.app": {
+    "id": "project7",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "Project7",
+    "description": "Demo App"
+  },
+
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+
+  "sap.ui5": {
+
+    "rootView": {
+      "viewName": "project7.view.App",
+      "type": "XML",
+      "id": "app",
+      "async": true
+    },
+
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+
+    "models": {
+      "": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/data.json"
+      },
+      "selected": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "project7.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+
+      "routes": [
+        {
+          "name": "main",
+          "pattern": "",
+          "target": "view1"
+        },
+        {
+          "name": "detail",
+          "pattern": "detail/{orderId}",
+          "target": "view2"
+        }
+      ],
+
+      "targets": {
+        "view1": {
+          "viewName": "View1",
+          "viewId": "View1"
+        },
+        "view2": {
+          "viewName": "View2",
+          "viewId": "View2"
+        }
+      }
+    }
+  }
+}
